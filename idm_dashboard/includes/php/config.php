@@ -8,7 +8,7 @@ ini_set('variables_order','GPCS');
 error_reporting(E_ALL ^ E_DEPRECATED);
 // NOC connection parameters
 date_default_timezone_set("UTC");
-$nocAddr = 'http://10.56.184.7:8084/wsapi/services/Moswsapi_1_1?wsdl';
+$nocAddr = 'http://10.55.156.75:8084/wsapi/services/Moswsapi_1_1?wsdl';
 $nocUser = 'admin';
 $nocPass = 'formula';
 $nocPass = base64_encode(hash('md5',$nocPass,true));
