@@ -27,8 +27,7 @@ function getAllSeries(){
 	global$seriesNames;
 	foreach($seriesNames as $graph => $pltfrm){
 		foreach($pltfrm as $key => $value){
-			if($graph=="expMan"){$timeOffset=24*60*60;}
-			else{$timeOffset=90*24*60*60;}
+			$timeOffset=90*24*60*60;
 			$temp=$NOC->mySeries($value['DN'],$timeOffset,$value["value"],$value["profile"]);
 			$cache->set($graph."_".$key,$temp);
 			$NOC->allSeries=null;
@@ -79,7 +78,7 @@ function flood($dn,$tree,$depth){
 }
 
 //getSNMP();
-getAlarms();
+//getAlarms();
 $tree=array();
 getAllSeries();
 $tree=flood($root,$tree,0);
