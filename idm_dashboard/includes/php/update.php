@@ -40,21 +40,26 @@ function flood($dn,$tree,$depth){
 	$depth=$depth+1;
 	if($depth<5){
 		$result=$NOC->getChilds($dn);
+		echo "<br />Result";
+		print "<pre>";
+		print_r($result);
+		print "</pre>";
+		echo "<br>";
 		if(isset($result['DName'])){
 			$tree=array("name"=>$result['displayName']);
 			$tree+=array("condition"=>$result['condition']);
 			$tree+=array("dname"=>$result['DName']);
-			$childRight='includedRightDNames';
-			if(isset($result[$childRight]['includedRightDNames'])){
-				if(!isset($result[$childRight]['includedRightDNames'][0])){
+			$childRight='includedChildDNames';
+			if(isset($result[$childRight]['includedChildDNames'])){
+				if(!is_array($result[$childRight]['includedChildDNames'])){
 					$tree+=array("children"=>array(0=>""));
-					$tree['children'][0]=flood($result[$childRight]['item']['relatedDName'],$tree['children'][0],$depth);
+					$tree['children'][0]=flood($result[$childRight]['includedChildDNames'],$tree['children'][0],$depth);
 					if(empty($tree['children'][0])){unset($tree['children']);}
 				}
 				else{
-					if($childRight == 'includedRightDNames'){
+					if($childRight == 'includedChildDNames'){
 						$tree+=array("children"=>array());
-						foreach($result[$childRight]['includedRightDNames']as$key=>$value){
+						foreach($result[$childRight]['includedChildDNames']as$key=>$value){
 							$tree['children']+=array($key=>"");
 							$tree['children'][$key]=flood($value,$tree['children'][$key],$depth);
 							if($tree['children'][$key]==''){unset($tree['children'][$key]);}
@@ -63,7 +68,7 @@ function flood($dn,$tree,$depth){
 					}
 					else{
 						$tree+=array("children"=>array());
-						foreach($result[$childRight]['includedRightDNames']as$key=>$value){
+						foreach($result[$childRight]['includedChildDNames']as$key=>$value){
 							$tree['children']+=array($key=>"");
 							$tree['children'][$key]=flood($value,$tree['children'][$key],$depth);
 							if($tree['children'][$key]==''){unset($tree['children'][$key]);}
@@ -83,7 +88,9 @@ $tree=array();
 getAllSeries();
 $tree=flood($root,$tree,0);
 echo "tree<br>";
+echo "<pre>";
 print_r($tree);
+echo "</pre>";
 $cache->set("root",$tree);
 $NOC->untie_from_NOC();
 ?>

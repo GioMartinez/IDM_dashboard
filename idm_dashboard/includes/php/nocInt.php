@@ -44,7 +44,7 @@ class NOCface{
 	}
 	public function getChilds($dn) {
 		$inclusionSpec=array(
-			"childDepth"=>0,
+			"childDepth"=>1,
 			"forceDiscovery"=>false,
 			"includeLeftElements"=>false,
 			"includeRightElements"=>true
@@ -65,9 +65,10 @@ class NOCface{
 			"inclusionSpec"=>$inclusionSpec,
 			"contentSpec"=>$contentSpec,
 			"throttle"=>$responseThrottle
-		));
+		)); 
+		
 		if(isset($result['getElementReturn'])){
-			return $result['getElementReturn']['elements']['elements'];
+		    return $result['getElementReturn']['elements']['elements'];
 		}
 	}
 	public function getAlarms($dn){

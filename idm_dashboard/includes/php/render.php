@@ -24,10 +24,12 @@ if(isset($_POST)&&!empty($_POST)){
 	function getSeries($dn,$property){
 		global$cache;
 		$series=array();
+		$fecha = new DateTime(null, new DateTimeZone('America/Mexico_City'));
+		$offset = date_offset_get($fecha);
 		$series=$cache->get($dn."_".$property);
 		foreach ($series as $key => $value){
 			if(isset($value["timestamp"])&&isset($value["value"])){
-				$series[$key][0] = ((strtotime($value["timestamp"])*1000)-(6*60*60*1000));
+			    $series[$key][0] = ((strtotime($value["timestamp"])*1)+($offset*1000)); //timezone remplazar 1000)-(6*60*60*1000));
 				$series[$key][1] = (intval($value["value"]));
 				unset($series[$key]["timestamp"]);
 				unset($series[$key]["value"]);
