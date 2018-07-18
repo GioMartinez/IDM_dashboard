@@ -5,6 +5,7 @@ ini_set('html_errors','1');
 ini_set('log_errors','1');
 ini_set('track_errors','1');
 ini_set('variables_order','GPCS');
+ini_set('max_execution_time', 300);
 error_reporting(E_ALL ^ E_DEPRECATED);
 // NOC connection parameters
 date_default_timezone_set("UTC");
@@ -16,19 +17,7 @@ $memAddr = 'localhost';
 $memPort = '11611';
 $memExpi = 4;
 $root = "MetricasIDM=MetricasIDM/root=Elements";
-$timeOffset = 30*24*60*60;
-$seriesNames=array(
-	"fiel"=>array(
-		"revocados"=>array(
-			"DN"=>"FielCont=AuthFielCont/AuthFielCont=AuthFielCont/UIFAuthFielCont=UIFAuthFielCont/root=Elements",
-			"value"=>"Revocados",
-			"profile"=>"AuthFiel"
-		),
-		"noautenticados"=>array(
-			"DN"=>"FielCont=AuthFielCont/AuthFielCont=AuthFielCont/UIFAuthFielCont=UIFAuthFielCont/root=Elements",
-			"value"=>"NOAutenticados",
-			"profile"=>"AuthFiel"
-		)
-	)
-)
+$timeOffset = 24*60*60;
+$seriesNames=array("Drivers"=>array());
+$alarmsDNs=array();
 ?>
