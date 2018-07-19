@@ -29,13 +29,14 @@ class Cache{
   		return $this->memory->delete($key);
   	}
 	function getAllKeys(){
-		return $this->memory->getAllKeys();
+		$this->memory->setOption(Memcached::OPT_BINARY_PROTOCOL,true);
+		return $this->memory->getAllKeys() or die ("Failed to get keys");
 	}
 	function getStats(){
-		return $this->memory->getStats();
+		return $this->memory->getStats() or die ("Failed to get stats");
 	}
   	function checkExpiration($data){
-	      while (count($data) >= $this->expire){ 
+	      while (count($data) >= $this->expire){
 	        array_shift($data); 
 	      } // may require multiple shift if expire is modified
 	      return $data;

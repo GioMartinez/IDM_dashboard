@@ -1,8 +1,4 @@
 <?php
-include_once'includes/php/config.php';
-include_once'includes/php/memInt.php';
-$cache=new Cache($memAddr,$memPort,$memExpi);
-$root=$cache->get("root");
 ?>
 <!DOCTYPE html>
 <html lang="es-MX">
@@ -24,18 +20,6 @@ $root=$cache->get("root");
 	</header>
 	<div class="container-fluid">
 		<div class="row" id="driversContainer">
-		<?php foreach($root['children']as$key=>$servers){
-			foreach($servers['children']as$key2=>$driversets){
-				foreach($driversets['children']as$key3=>$drivers){ ?>
-					<div class="col-lg-3 my-2" series="<?php echo $drivers['name']?>">
-						<div class="card border-sat">
-							<h6 class="card-header bg-sat text-white"><?php echo $drivers['name']?></h6>
-							<div class="card-body" id="chart_<?php echo $drivers['name']?>" style="width: 100%; height: 400px;"></div>
-						</div>
-					</div>
-				<?php }
-			}
-		} ?>
 		</div>
 	</div>
 	<header>
